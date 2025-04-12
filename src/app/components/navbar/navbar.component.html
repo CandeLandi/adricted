@@ -1,0 +1,20 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="container">
+    <a href="#" class="logo">
+      <img src="assets/images/a-logo.png" alt="AdriCted Logo">
+    </a>
+
+    <button class="menu-toggle" (click)="toggleMenu()" [class.active]="isMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" [class.active]="isMenuOpen">
+      <li style="--i: 0"><a href="#" (click)="closeMenu()">Inicio</a></li>
+      <li style="--i: 1"><a href="#bio" (click)="closeMenu()">Biografía</a></li>
+      <li style="--i: 2"><a href="#events" (click)="closeMenu()">Eventos</a></li>
+      <li style="--i: 3"><a href="#contact" (click)="closeMenu()">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
