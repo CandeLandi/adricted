@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-interface Event {
-  day: string;
-  month: string;
-  title: string;
-  venue: string;
-  location: string;
-  time: string;
-  ticketLink: string;
-}
-
 @Component({
   selector: 'app-events',
   standalone: true,
@@ -19,33 +9,81 @@ interface Event {
   styleUrls: ['./events.component.scss']
 })
 export class EventsComponent {
-  events: Event[] = [
+  events = [
     {
-      day: '15',
-      month: 'JUN',
-      title: 'Summer Festival 2024',
-      venue: 'Main Stage',
-      location: 'Buenos Aires, Argentina',
-      time: '22:00 - 04:00',
-      ticketLink: 'https://example.com/tickets'
+      id: 1,
+      name: 'Noche de Vinilos',
+      date: '15/03/2024',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.10.03.jpeg',
+      venue: 'Club XYZ'
     },
     {
-      day: '22',
-      month: 'JUL',
-      title: 'Club Night',
-      venue: 'The Underground',
-      location: 'Mendoza, Argentina',
-      time: '23:00 - 06:00',
-      ticketLink: 'https://example.com/tickets'
+      id: 2,
+      name: 'Sesión Especial',
+      date: '22/02/2024',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.09.50.jpeg',
+      venue: 'Bar ABC'
     },
     {
-      day: '05',
-      month: 'AUG',
-      title: 'Beach Party',
-      venue: 'Ocean Club',
-      location: 'Mar del Plata, Argentina',
-      time: '21:00 - 05:00',
-      ticketLink: 'https://example.com/tickets'
+      id: 3,
+      name: 'After Hours',
+      date: '10/01/2024',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.47 (1).jpeg',
+      venue: 'Lounge 123'
+    },
+    {
+      id: 4,
+      name: 'DJ Set',
+      date: '05/01/2024',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.47.jpeg',
+      venue: 'Club 456'
+    },
+    {
+      id: 5,
+      name: 'Live Session',
+      date: '20/12/2023',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.46 (2).jpeg',
+      venue: 'Studio 789'
+    },
+    {
+      id: 6,
+      name: 'Special Guest',
+      date: '15/12/2023',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.46.jpeg',
+      venue: 'Venue XYZ'
+    },
+    {
+      id: 7,
+      name: 'Night Session',
+      date: '10/12/2023',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.45 (1).jpeg',
+      venue: 'Club ABC'
+    },
+    {
+      id: 8,
+      name: 'Closing Party',
+      date: '05/12/2023',
+      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.45.jpeg',
+      venue: 'Final Venue'
     }
   ];
+
+  currentIndex = 0;
+  visibleCards = 3;
+
+  next() {
+    if (this.currentIndex < this.events.length - this.visibleCards) {
+      this.currentIndex++;
+    }
+  }
+
+  prev() {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
+  }
+
+  get visibleEvents() {
+    return this.events.slice(this.currentIndex, this.currentIndex + this.visibleCards);
+  }
 }

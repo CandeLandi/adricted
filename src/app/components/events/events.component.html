@@ -1,26 +1,88 @@
-<section class="events" id="events">
-  <div class="container">
-    <h2 class="section-title">Próximos Eventos</h2>
+<section class="events">
+  <div class="events-container">
+    <!-- Próximos Shows -->
+    <div class="upcoming-shows">
+      <h2 class="section-title">PRÓXIMOS SHOWS</h2>
 
-    <div class="events-grid">
-      <div class="event-card" *ngFor="let event of events">
-        <div class="date">
-          <span class="day">{{event.day}}</span>
-          <span class="month">{{event.month}}</span>
+      <div class="upcoming-events-list">
+        <!-- Bogotá -->
+        <div class="event-row">
+          <div class="event-info-group">
+            <p class="event-date">27 SEP 2025</p>
+            <div class="location-group">
+              <i class="fi fi-co"></i>
+              <p class="city-name">BOGOTÁ</p>
+            </div>
+            <p class="venue-name">Royal Center</p>
+          </div>
+          <a href="#" class="ticket-button">
+            TICKETS
+          </a>
         </div>
 
-        <div class="event-info">
-          <h3 class="event-title">{{event.title}}</h3>
-          <p class="venue">{{event.venue}}</p>
-          <p class="location">{{event.location}}</p>
-          <p class="time">{{event.time}}</p>
+        <!-- Mendoza -->
+        <div class="event-row">
+          <div class="event-info-group">
+            <p class="event-date">31 MAY 2025</p>
+            <div class="location-group">
+              <i class="fi fi-ar"></i>
+              <p class="city-name">MENDOZA</p>
+            </div>
+            <p class="venue-name">Arena Maipú</p>
+          </div>
+          <a href="#" class="ticket-button">
+            TICKETS
+          </a>
         </div>
 
-        <a [href]="event.ticketLink" target="_blank" class="ticket-button">
-          <i class="fas fa-ticket-alt"></i>
-          Comprar Entradas
-        </a>
+        <!-- Rosario -->
+        <div class="event-row">
+          <div class="event-info-group">
+            <p class="event-date">26 ABR 2025</p>
+            <div class="location-group">
+              <i class="fi fi-ar"></i>
+              <p class="city-name">ROSARIO</p>
+            </div>
+            <p class="venue-name">Bioceres Arena</p>
+          </div>
+          <a href="#" class="ticket-button">
+            TICKETS
+          </a>
+        </div>
+
+        <!-- Mar del Plata -->
+        <div class="event-row">
+          <div class="event-info-group">
+            <p class="event-date">18 ABR 2025</p>
+            <div class="location-group">
+              <i class="fi fi-ar"></i>
+              <p class="city-name">MAR DEL PLATA</p>
+            </div>
+            <p class="venue-name">Polideportivo Malvinas Argentinas</p>
+          </div>
+          <a href="#" class="ticket-button">
+            TICKETS
+          </a>
+        </div>
       </div>
+    </div>
+
+    <!-- Galería de Flyers -->
+    <h2 class="section-title">Eventos Pasados</h2>
+    <div class="carousel-controls">
+      <button class="carousel-button prev" (click)="prev()" [disabled]="currentIndex === 0">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="events-grid">
+        <div class="event-card" *ngFor="let event of visibleEvents">
+          <div class="event-image">
+            <img [src]="event.image" [alt]="event.name">
+          </div>
+        </div>
+      </div>
+      <button class="carousel-button next" (click)="next()" [disabled]="currentIndex >= events.length - visibleCards">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 </section>

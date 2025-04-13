@@ -1,99 +1,300 @@
 .events {
-  padding: 5rem 0;
-  background: #111;
-  color: #fff;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 
-  .container {
-    max-width: 1200px;
+  .events-container {
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .section-title {
-    font-family: 'Inter', sans-serif;
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: bold;
+    color: #fff;
     text-align: center;
     margin-bottom: 3rem;
+    position: relative;
+    padding: 0 1rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: #ff6b6b;
+    }
+  }
+
+  // Estilos para la sección de próximos shows
+  .upcoming-shows {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 4rem;
+    padding: 0 1rem;
+  }
+
+  .upcoming-events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .event-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  .event-info-group {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      width: 100%;
+    }
+  }
+
+  .event-date {
+    font-size: 1.1rem;
+    font-weight: bold;
     color: #fff;
+    white-space: nowrap;
+  }
+
+  .location-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .fi {
+      font-size: 1.5rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 2px;
+    }
+
+    // Estilos específicos para cada bandera
+    .fi-ar {
+      background: linear-gradient(180deg, #75AADB 33.33%, #fff 33.33%, #fff 66.67%, #75AADB 66.67%);
+      position: relative;
+      overflow: hidden;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.75rem;
+        height: 0.75rem;
+        background: #F6B40E;
+        border-radius: 50%;
+      }
+    }
+
+    .fi-co {
+      background: linear-gradient(180deg, #FCD116 50%, #003893 75%, #CE1126 100%);
+    }
+  }
+
+  .city-name {
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .venue-name {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+  }
+
+  .ticket-button {
+    background: #ff6b6b;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    border: 2px solid #1a365d;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 120px;
+    text-decoration: none;
+
+    &:hover {
+      background: darken(#ff6b6b, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 1rem;
+    }
+  }
+
+  .finalized-button {
+    background: #4a5568;
+    color: white;
+    font-weight: bold;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    border: 2px solid #2d3748;
+    opacity: 0.75;
+    cursor: not-allowed;
+    text-align: center;
+    min-width: 120px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-top: 1rem;
+    }
+  }
+
+  // Estilos para la galería de flyers
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+  }
+
+  .carousel-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.prev {
+      left: -20px;
+    }
+
+    &.next {
+      right: -20px;
+    }
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
   }
 
   .events-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    justify-content: center;
   }
 
   .event-card {
-    background: #1A1A1A;
-    border-radius: 10px;
+    flex: 0 0 auto;
+    width: 300px;
+    height: 424px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     position: relative;
-    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
     &:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     }
 
-    .event-date {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      text-align: center;
-      background: #2563EB;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
+    .event-image {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
 
-      .day {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
         display: block;
-        font-size: 1.5rem;
-        font-weight: 700;
-      }
-
-      .month {
-        display: block;
-        font-size: 0.9rem;
-        text-transform: uppercase;
       }
     }
 
     .event-info {
-      margin-top: 1rem;
-
-      .event-title {
-        font-family: 'Inter', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: #fff;
-      }
-
-      .event-venue,
-      .event-location,
-      .event-time {
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-        color: #ccc;
-      }
-    }
-
-    .ticket-button {
-      display: inline-block;
-      margin-top: 1.5rem;
-      padding: 0.8rem 1.5rem;
-      background: #2563EB;
+      padding: 1rem;
       color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      transition: background 0.3s ease;
+      background: rgba(0, 0, 0, 0.7);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
 
-      &:hover {
-        background: #3B82F6;
+      .event-date {
+        font-size: 0.8rem;
+        color: #ff6b6b;
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+
+      .event-name {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+      }
+
+      .event-venue {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
       }
     }
   }
@@ -108,8 +309,26 @@
       margin-bottom: 2rem;
     }
 
-    .events-grid {
-      grid-template-columns: 1fr;
+    .carousel-controls {
+      padding: 0 2rem;
+    }
+
+    .carousel-button {
+      width: 35px;
+      height: 35px;
+
+      &.prev {
+        left: 0;
+      }
+
+      &.next {
+        right: 0;
+      }
+    }
+
+    .event-card {
+      width: 250px;
+      height: 353px;
     }
   }
 }

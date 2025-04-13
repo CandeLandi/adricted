@@ -1,177 +1,185 @@
 .bio {
+  position: relative;
   padding: 120px 0;
-  background: linear-gradient(180deg, #000000 0%, #111111 100%);
-  color: white;
   overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/assets/background-bio.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+    z-index: 1;
+  }
 
   .container {
-    max-width: 1400px;
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 2rem;
+    width: 100%;
   }
 
   .bio-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-  }
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 3rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 
-  .bio-text {
-    .section-title {
-      font-size: 3.5rem;
-      margin-bottom: 40px;
-      position: relative;
-
-      &:after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 60px;
-        height: 4px;
-        background: #2563EB;
-        border-radius: 2px;
-      }
-    }
-
-    .bio-description {
-      margin-bottom: 60px;
-
-      p {
-        margin-bottom: 20px;
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #9CA3AF;
-
-        &.highlight {
-          font-size: 1.4rem;
-          color: white;
-          font-weight: 300;
-          line-height: 1.6;
-          margin-bottom: 30px;
-        }
-      }
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin-top: 40px;
-
-      .stat-item {
-        text-align: left;
-
-        .number {
-          display: block;
-          font-size: 2.5rem;
-          font-weight: 600;
-          color: #2563EB;
-          margin-bottom: 8px;
-        }
-
-        .label {
-          font-size: 0.9rem;
-          color: #9CA3AF;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-      }
+    @media (max-width: 768px) {
+      padding: 2rem;
     }
   }
 
   .bio-image {
     position: relative;
+    z-index: 2;
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 100%;
-      height: 100%;
-      border: 2px solid #2563EB;
-      border-radius: 20px;
-      z-index: 1;
-    }
-
-    .artist-image {
+    img {
       width: 100%;
       height: auto;
-      border-radius: 20px;
-      position: relative;
-      z-index: 2;
-      filter: grayscale(20%);
-      transition: all 0.4s ease;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
 
       &:hover {
-        filter: grayscale(0%);
         transform: scale(1.02);
       }
     }
+  }
+
+  .bio-text {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+
+    h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .bio-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease 0.8s forwards;
+
+    .stat-item {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #2563EB;
+      }
+
+      i {
+        font-size: 2rem;
+        color: #2563EB;
+        margin-bottom: 1rem;
+      }
+
+      .stat-number {
+        display: block;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+    min-height: auto;
+
+    .bio-text {
+      h2 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+    }
+
+    .bio-stats {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @media (max-width: 1024px) {
   .bio {
-    padding: 80px 0;
-
     .bio-content {
       grid-template-columns: 1fr;
-      gap: 60px;
-    }
-
-    .bio-text {
-      .section-title {
-        font-size: 3rem;
-      }
-
-      .bio-description {
-        p.highlight {
-          font-size: 1.3rem;
-        }
-      }
+      gap: 3rem;
     }
 
     .bio-image {
-      max-width: 600px;
+      order: -1;
+      max-width: 500px;
       margin: 0 auto;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .bio {
-    padding: 60px 0;
-
-    .bio-text {
-      .section-title {
-        font-size: 2.5rem;
-      }
-
-      .bio-description {
-        p.highlight {
-          font-size: 1.2rem;
-        }
-
-        p {
-          font-size: 1rem;
-        }
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-        gap: 20px;
-
-        .stat-item {
-          text-align: center;
-
-          .number {
-            font-size: 2rem;
-          }
-        }
-      }
     }
   }
 }

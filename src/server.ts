@@ -5,7 +5,7 @@ import express from 'express';
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
-const app = express();
+const server = express();
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -22,7 +22,7 @@ const app = express();
 /**
  * Serve static files from /browser
  */
-app.use(express.static(browserDistFolder, {
+server.use(express.static(browserDistFolder, {
   maxAge: '1y',
   index: false,
   redirect: false,
@@ -31,20 +31,11 @@ app.use(express.static(browserDistFolder, {
 /**
  * Handle all other requests by serving index.html
  */
-app.use('*', (req, res) => {
+server.use('*', (req, res) => {
   res.sendFile(resolve(browserDistFolder, 'index.html'));
 });
 
 /**
- * Start the server if this module is the main entry point.
- * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
+ * Export the Express app for Angular SSR
  */
-const port = process.env['PORT'] || 4000;
-app.listen(port, () => {
-  console.log(`Node Express server listening on http://localhost:${port}`);
-});
-
-/**
- * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
- */
-export const reqHandler = app;
+export const app = server;
