@@ -31,7 +31,7 @@ server.use(express.static(browserDistFolder, {
 /**
  * Handle all other requests by serving index.html
  */
-server.use('*', (req, res) => {
+server.get('*', (req, res) => {
   res.sendFile(resolve(browserDistFolder, 'index.html'));
 });
 
