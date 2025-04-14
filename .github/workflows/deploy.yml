@@ -29,8 +29,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build SSR
+        run: npm run build:ssr
+
+      - name: Build static
         run: npm run build -- --configuration production --base-href=/
+
+      - name: Create .nojekyll file
+        run: touch dist/adricted/browser/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
