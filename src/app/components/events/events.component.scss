@@ -1,37 +1,200 @@
+@use "sass:color";
+
 .events {
   padding: 4rem 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9));
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95));
   position: relative;
   z-index: 1;
   overflow: hidden;
 
   .events-container {
-    max-width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0 1.5rem;
   }
 
   .section-title {
     font-size: 2.5rem;
-    font-weight: bold;
+    font-weight: 800;
     color: #fff;
     text-align: center;
     margin-bottom: 3rem;
-    position: relative;
-    padding: 0 1rem;
+    letter-spacing: 2px;
+  }
 
-    &::after {
+  .events-scroll-container {
+    max-height: 240px;
+    overflow-y: auto;
+    margin: 0 auto 4rem;
+    max-width: 800px;
+    padding-right: 1rem;
+
+    /* Estilos personalizados para el scrollbar */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(59, 130, 246, 0.5);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.7);
+      }
+    }
+
+    /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59, 130, 246, 0.5) transparent;
+  }
+
+  .event-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .event-date {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      min-width: 100px;
+    }
+
+    .event-name {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 400;
+    }
+  }
+
+  .flyers-gallery {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    background: #0a0a0f;
+    margin: 2rem 0;
+
+    &::before {
       content: '';
       position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: #ff6b6b;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--background-image);
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.3) blur(8px);
+      transition: background-image 0.5s ease;
+      z-index: 0;
+    }
+
+    .gallery-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .gallery-track {
+      display: flex;
+      align-items: center;
+      gap: 0.8vw;
+      padding: 0 4vw;
+      will-change: transform;
+      transition: transform 0.3s ease-out;
+    }
+
+    .gallery-slide {
+      flex: 0 0 18vw;
+      height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        filter: brightness(0.9) contrast(1.1);
+
+        &:hover {
+          transform: scale(1.05);
+          filter: brightness(1) contrast(1.1);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+  }
+
+  .flyers-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    transition: all 0.5s ease;
+    filter: blur(8px);
+  }
+
+  .flyers-container {
+    position: relative;
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    z-index: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .flyer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    img {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      filter: grayscale(50%);
+
+      &:hover {
+        transform: scale(1.05);
+        filter: grayscale(0%);
+        box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      }
     }
   }
 
@@ -81,53 +244,10 @@
     }
   }
 
-  .event-date {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #fff;
-    white-space: nowrap;
-  }
-
-  .location-group {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-
-    .fi {
-      font-size: 1.5rem;
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 2px;
-    }
-
-    // Estilos específicos para cada bandera
-    .fi-ar {
-      background: linear-gradient(180deg, #75AADB 33.33%, #fff 33.33%, #fff 66.67%, #75AADB 66.67%);
-      position: relative;
-      overflow: hidden;
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 0.75rem;
-        height: 0.75rem;
-        background: #F6B40E;
-        border-radius: 50%;
-      }
-    }
-
-    .fi-co {
-      background: linear-gradient(180deg, #FCD116 50%, #003893 75%, #CE1126 100%);
-    }
-  }
-
   .city-name {
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
   .venue-name {
@@ -149,9 +269,8 @@
     text-decoration: none;
 
     &:hover {
-      background: darken(#ff6b6b, 10%);
       transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      background: color.adjust(#ff6b6b, $lightness: -10%);
     }
 
     @media (max-width: 768px) {
@@ -178,7 +297,7 @@
     }
   }
 
-  // Estilos para la galería de flyers
+  // Estilos para la galería
   .carousel-controls {
     display: flex;
     align-items: center;
@@ -300,6 +419,30 @@
   }
 }
 
+@media (min-width: 768px) {
+  .events {
+    .flyers-gallery {
+      .flyers-container {
+        padding: 0 4rem;
+        gap: 1.5rem;
+        justify-content: center;
+
+        .flyer-column {
+          width: 150px;
+          height: 500px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .flyer-column img {
+    width: 250px;
+    height: 333px;
+  }
+}
+
 @media (max-width: 768px) {
   .events {
     padding: 3rem 0;
@@ -309,26 +452,53 @@
       margin-bottom: 2rem;
     }
 
-    .carousel-controls {
-      padding: 0 2rem;
+    .events-scroll-container {
+      max-height: 200px;
+      margin-bottom: 3rem;
     }
 
-    .carousel-button {
-      width: 35px;
-      height: 35px;
+    .event-item {
+      padding: 0.75rem;
+      gap: 1.5rem;
 
-      &.prev {
-        left: 0;
+      .event-date {
+        font-size: 1rem;
+        min-width: 80px;
       }
 
-      &.next {
-        right: 0;
+      .event-name {
+        font-size: 1rem;
+      }
+    }
+
+    .flyers-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .flyer-column {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      img {
+        width: 200px;
+        height: 267px;
       }
     }
 
     .event-card {
       width: 250px;
       height: 353px;
+    }
+
+    .flyers-gallery {
+      height: 70vh;
+
+      .gallery-slide {
+        flex: 0 0 65vw;
+        height: 65vh;
+      }
     }
   }
 }
