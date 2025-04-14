@@ -33,7 +33,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "baseHref": "/adricted/"
+            "baseHref": "/"
           },
           "configurations": {
             "production": {
@@ -101,5 +101,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "ff1e6c0b-3daa-4634-b00c-be0a45f2359b"
   }
 }
