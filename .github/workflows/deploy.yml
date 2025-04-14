@@ -27,6 +27,12 @@ jobs:
       - name: Build
         run: npm run build -- --configuration production --base-href=/
 
+      - name: Create .nojekyll file
+        run: touch dist/adricted/browser/.nojekyll
+
+      - name: Copy index.html to root
+        run: cp index.html dist/adricted/browser/
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
