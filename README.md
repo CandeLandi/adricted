@@ -17,6 +17,12 @@ Adricted es un DJ y productor musical que se destaca por su versatilidad y capac
 
 Puedes ver la página en vivo en: [https://candelandi.github.io/adricted/](https://candelandi.github.io/adricted/)
 
+## 🎵 Redes Sociales y Música
+
+- [SoundCloud](https://soundcloud.com/adricted)
+- [Instagram](https://instagram.com/adricted)
+- [YouTube](https://youtube.com/@adricted)
+
 ## 🚀 Tecnologías
 
 - Angular 19
