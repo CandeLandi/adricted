@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, OnDestroy, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -8,82 +8,96 @@ import { CommonModule } from '@angular/common';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
-export class EventsComponent {
-  events = [
-    {
-      id: 1,
-      name: 'Noche de Vinilos',
-      date: '15/03/2024',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.10.03.jpeg',
-      venue: 'Club XYZ'
-    },
-    {
-      id: 2,
-      name: 'Sesión Especial',
-      date: '22/02/2024',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.09.50.jpeg',
-      venue: 'Bar ABC'
-    },
-    {
-      id: 3,
-      name: 'After Hours',
-      date: '10/01/2024',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.47 (1).jpeg',
-      venue: 'Lounge 123'
-    },
-    {
-      id: 4,
-      name: 'DJ Set',
-      date: '05/01/2024',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.47.jpeg',
-      venue: 'Club 456'
-    },
-    {
-      id: 5,
-      name: 'Live Session',
-      date: '20/12/2023',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.46 (2).jpeg',
-      venue: 'Studio 789'
-    },
-    {
-      id: 6,
-      name: 'Special Guest',
-      date: '15/12/2023',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.46.jpeg',
-      venue: 'Venue XYZ'
-    },
-    {
-      id: 7,
-      name: 'Night Session',
-      date: '10/12/2023',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.45 (1).jpeg',
-      venue: 'Club ABC'
-    },
-    {
-      id: 8,
-      name: 'Closing Party',
-      date: '05/12/2023',
-      image: 'assets/images/flyers/WhatsApp Image 2025-03-22 at 17.08.45.jpeg',
-      venue: 'Final Venue'
-    }
+export class EventsComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('galleryTrack') galleryTrack!: ElementRef;
+
+  backgroundImage: string = 'assets/images/background/events-bg.jpg';
+  private animationInterval?: number;
+  private readonly SLIDE_WIDTH = 18.8;
+  private currentPosition = 0;
+
+  eventosPasados = [
+    { fecha: "8/03/2025", evento: "Roomie Mar del Plata", flyer: "assets/flyers/roomie-8-3-2025.jpeg" },
+    { fecha: "31/12/2024", evento: "Markama", flyer: "assets/flyers/markama-31-12-2024.jpeg" },
+    { fecha: "27/10/2024", evento: "Pool Party Halloween", flyer: "assets/flyers/poolparty-27-10-2024.jpeg" },
+    { fecha: "26/10/2024", evento: "Acid Lemon", flyer: "assets/flyers/acidlemon-26-10-2024.jpeg" },
+    { fecha: "26/07/2024", evento: "Roomie Mar del Plata", flyer: "assets/flyers/roomie-26-7-2024.jpeg" },
+    { fecha: "21/07/2024", evento: "Amazonia After", flyer: "assets/flyers/amazonia-21-7-2024.jpeg" },
+    { fecha: "19/07/2024", evento: "South Club Necochea", flyer: "assets/flyers/south-19-7-2024.jpeg" },
+    { fecha: "07/04/2024", evento: "Amazonia After", flyer: "assets/flyers/amazonia-7-4-2024.jpeg" },
+    { fecha: "10/02/2024", evento: "Positive Markama", flyer: "assets/flyers/positive-markama-1002.jpeg" },
+    { fecha: "01/01/2024", evento: "Positive Markama", flyer: "assets/flyers/positive-markama-0101.jpeg" }
   ];
 
-  currentIndex = 0;
-  visibleCards = 3;
+  constructor(private ngZone: NgZone) { }
 
-  next() {
-    if (this.currentIndex < this.events.length - this.visibleCards) {
-      this.currentIndex++;
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.startCarousel();
+    }, 0);
+  }
+
+  ngOnDestroy(): void {
+    if (this.animationInterval) {
+      window.clearInterval(this.animationInterval);
     }
   }
 
-  prev() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
+  private startCarousel(): void {
+    if (!this.galleryTrack?.nativeElement) return;
+
+    const track = this.galleryTrack.nativeElement;
+    const slides = track.querySelectorAll('.gallery-slide');
+    const totalSlides = slides.length;
+
+    // Clonar todos los slides al final para crear un loop perfecto
+    for (let i = 0; i < totalSlides; i++) {
+      const clone = slides[i].cloneNode(true);
+      track.appendChild(clone);
     }
+
+    this.updateTrackPosition(0);
+
+    this.ngZone.runOutsideAngular(() => {
+      this.animationInterval = window.setInterval(() => {
+        this.ngZone.run(() => {
+          this.currentPosition -= this.SLIDE_WIDTH;
+
+          // Si llegamos al final de los slides originales
+          if (Math.abs(this.currentPosition) >= (totalSlides * this.SLIDE_WIDTH)) {
+            // Resetear la posición al inicio sin animación
+            this.currentPosition = 0;
+            this.updateTrackPosition(this.currentPosition, false);
+
+            // Inmediatamente comenzar la siguiente animación
+            requestAnimationFrame(() => {
+              this.currentPosition -= this.SLIDE_WIDTH;
+              this.updateTrackPosition(this.currentPosition);
+            });
+          } else {
+            this.updateTrackPosition(this.currentPosition);
+          }
+
+          // Actualizar la imagen de fondo
+          const currentIndex = Math.floor(Math.abs(this.currentPosition) / this.SLIDE_WIDTH) % totalSlides;
+          this.backgroundImage = this.eventosPasados[currentIndex].flyer;
+        });
+      }, 2000); // Reducido de 3000ms a 2000ms
+    });
   }
 
-  get visibleEvents() {
-    return this.events.slice(this.currentIndex, this.currentIndex + this.visibleCards);
+  private updateTrackPosition(position: number, animate: boolean = true): void {
+    if (!this.galleryTrack?.nativeElement) return;
+
+    const track = this.galleryTrack.nativeElement;
+    track.style.transition = animate ? 'transform 0.5s ease-out' : 'none';
+    track.style.transform = `translateX(${position}vw)`;
+  }
+
+  onFlyerHover(flyerPath: string): void {
+    this.backgroundImage = flyerPath;
   }
 }

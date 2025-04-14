@@ -27,7 +27,7 @@
       transition: all 0.3s ease;
 
       &:hover {
-        color: #ff6b6b;
+        color: #3b82f6;
         transform: scale(1.05);
       }
 
@@ -39,7 +39,7 @@
       }
 
       &:hover .logo-img {
-        filter: brightness(0) invert(1) sepia(1) saturate(3000%) hue-rotate(330deg);
+        filter: brightness(0) invert(1) sepia(1) saturate(3000%) hue-rotate(200deg);
       }
     }
 
@@ -55,7 +55,7 @@
         font-size: 0.9rem;
 
         &:hover {
-          color: #ff6b6b;
+          color: #3b82f6;
           transform: translateY(-2px);
         }
       }
@@ -71,7 +71,7 @@
         transition: all 0.3s ease;
 
         &:hover {
-          color: #ff6b6b;
+          color: #3b82f6;
           transform: scale(1.2);
         }
       }

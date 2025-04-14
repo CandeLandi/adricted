@@ -1,88 +1,23 @@
 <section class="events">
+  <!-- Upcoming Events Section -->
   <div class="events-container">
-    <!-- Próximos Shows -->
-    <div class="upcoming-shows">
-      <h2 class="section-title">PRÓXIMOS SHOWS</h2>
-
-      <div class="upcoming-events-list">
-        <!-- Bogotá -->
-        <div class="event-row">
-          <div class="event-info-group">
-            <p class="event-date">27 SEP 2025</p>
-            <div class="location-group">
-              <i class="fi fi-co"></i>
-              <p class="city-name">BOGOTÁ</p>
-            </div>
-            <p class="venue-name">Royal Center</p>
-          </div>
-          <a href="#" class="ticket-button">
-            TICKETS
-          </a>
-        </div>
-
-        <!-- Mendoza -->
-        <div class="event-row">
-          <div class="event-info-group">
-            <p class="event-date">31 MAY 2025</p>
-            <div class="location-group">
-              <i class="fi fi-ar"></i>
-              <p class="city-name">MENDOZA</p>
-            </div>
-            <p class="venue-name">Arena Maipú</p>
-          </div>
-          <a href="#" class="ticket-button">
-            TICKETS
-          </a>
-        </div>
-
-        <!-- Rosario -->
-        <div class="event-row">
-          <div class="event-info-group">
-            <p class="event-date">26 ABR 2025</p>
-            <div class="location-group">
-              <i class="fi fi-ar"></i>
-              <p class="city-name">ROSARIO</p>
-            </div>
-            <p class="venue-name">Bioceres Arena</p>
-          </div>
-          <a href="#" class="ticket-button">
-            TICKETS
-          </a>
-        </div>
-
-        <!-- Mar del Plata -->
-        <div class="event-row">
-          <div class="event-info-group">
-            <p class="event-date">18 ABR 2025</p>
-            <div class="location-group">
-              <i class="fi fi-ar"></i>
-              <p class="city-name">MAR DEL PLATA</p>
-            </div>
-            <p class="venue-name">Polideportivo Malvinas Argentinas</p>
-          </div>
-          <a href="#" class="ticket-button">
-            TICKETS
-          </a>
-        </div>
+    <h2 class="section-title">SHOWS</h2>
+    <div class="events-scroll-container">
+      <div class="event-item" *ngFor="let evento of eventosPasados">
+        <span class="event-date">{{evento.fecha}}</span>
+        <span class="event-name">{{evento.evento}}</span>
       </div>
     </div>
+  </div>
 
-    <!-- Galería de Flyers -->
-    <h2 class="section-title">Eventos Pasados</h2>
-    <div class="carousel-controls">
-      <button class="carousel-button prev" (click)="prev()" [disabled]="currentIndex === 0">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <div class="events-grid">
-        <div class="event-card" *ngFor="let event of visibleEvents">
-          <div class="event-image">
-            <img [src]="event.image" [alt]="event.name">
-          </div>
+  <!-- Flyers Gallery -->
+  <div class="flyers-gallery">
+    <div class="gallery-container">
+      <div class="gallery-track" #galleryTrack>
+        <div class="gallery-slide" *ngFor="let evento of eventosPasados">
+          <img [src]="evento.flyer" [alt]="evento.evento" loading="lazy">
         </div>
       </div>
-      <button class="carousel-button next" (click)="next()" [disabled]="currentIndex >= events.length - visibleCards">
-        <i class="fas fa-chevron-right"></i>
-      </button>
     </div>
   </div>
 </section>

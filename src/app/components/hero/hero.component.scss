@@ -36,6 +36,32 @@
     max-width: 500px;
     width: 100%;
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    animation: fadeInDown 1s ease-out;
+  }
+
+  .group {
+    position: relative;
+    display: inline-block;
+
+    .neon-border {
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      padding: 2px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6, #22d3ee);
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    &:hover .neon-border {
+      opacity: 1;
+      animation: border-wave 2s linear infinite;
+    }
   }
 
   .youtube-button {
@@ -45,24 +71,37 @@
     padding: 16px 32px;
     color: white;
     text-decoration: none;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: 50px;
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.5px;
-    transition: all 0.4s ease;
-    backdrop-filter: blur(5px);
-    background: rgba(255, 255, 255, 0.1);
-    margin-bottom: 40px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
     i {
       font-size: 1.3rem;
+      color: #fff;
+    }
+
+    .animated-text {
+      position: relative;
+      display: inline-block;
+      color: white;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-      border-color: white;
+      background: rgba(0, 0, 0, 0.7);
+
+      .animated-text {
+        background: linear-gradient(90deg, #1e3a8a, #3b82f6, #22d3ee);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: text-wave 3s ease-in-out infinite;
+      }
     }
   }
 
@@ -80,6 +119,52 @@
     i {
       font-size: 1.2rem;
     }
+  }
+}
+
+@keyframes border-wave {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes text-wave {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -111,7 +196,6 @@
     .youtube-button {
       padding: 14px 28px;
       font-size: 1rem;
-      margin-bottom: 60px;
 
       i {
         font-size: 1.2rem;
