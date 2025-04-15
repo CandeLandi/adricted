@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build -- --configuration production --base-href=/
+        run: npm run build -- --configuration production --base-href=/adricted/
 
       - name: Create .nojekyll file
         run: touch dist/adricted/browser/.nojekyll
