@@ -1,8 +1,8 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideServerRendering } from '@angular/platform-server';
 
 export const config: ApplicationConfig = {
   providers: [
-    provideClientHydration()
+    provideServerRendering()
   ]
 };
